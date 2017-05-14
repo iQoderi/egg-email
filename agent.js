@@ -3,5 +3,5 @@
 const email = require('./lib/email');
 
 module.exports = agent => {
-    if (agent.config.app.agent) email(agent);
+    if (agent.config.email.agent) email(agent);
 };

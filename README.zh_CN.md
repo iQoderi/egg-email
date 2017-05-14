@@ -20,28 +20,20 @@
 [download-image]: https://img.shields.io/npm/dm/egg-email.svg?style=flat-square
 [download-url]: https://npmjs.org/package/egg-email
 
-<!--
-Description here.
--->
+Email 插件是为 egg 提供 email 邮件服务的功能
 
-## 依赖说明
-
-### 依赖的 egg 版本
+## 依赖的 egg 版本
 
 egg-email 版本 | egg 1.x
 --- | ---
 1.x | 😁
 0.x | ❌
 
-### 依赖的插件
-<!--
 
-如果有依赖其它插件，请在这里特别说明。如
-
-- security
-- multipart
-
--->
+## 安装
+```bash
+$ npm install egg-email --save
+```
 
 ## 开启插件
 
@@ -53,19 +45,103 @@ exports.email = {
 };
 ```
 
-## 使用场景
+## 配置
 
-- Why and What: 描述为什么会有这个插件，它主要在完成一件什么事情。
-尽可能描述详细。
-- How: 描述这个插件是怎样使用的，具体的示例代码，甚至提供一个完整的示例，并给出链接。
+通过`config/plugins.js` 来启动 Email 插件
+
+```js
+exports.email = {
+    enable: true,
+    package: 'egg-email',
+}
+```
+
+在 `config/config.${env}.js`配置各个环境的邮件服务连接信息；
+
+### 单数据源
+
+```js
+exports.email = {
+    client: {
+       host: 'smtp.qq.com',
+       secureConnection: true,
+       port: 465,
+       auth: {
+           user: 'test_user',
+           pass: 'test_pass'
+       }
+    }
+}
+```
+使用方法:
+
+```js
+const mailOptions = {
+    from: 'qoderplus@gmail.com',
+    to: 'test_user@qq.com',
+    subject: 'hello world',
+    html: `<a href = 'link'>点击链接进行验证</a>`
+};
+
+app.email.sendMail(mailOptions, (error, response) => {
+    if (error) {
+        console.log('error:', error);
+    } else {
+        console.log('email sent: ' + response.message);
+    }
+    app.email.close();
+});
+
+```
+### 多数据源
+
+```js
+exports.email = {
+  clients: {
+      mail1: {
+         host: 'smtp.qq.com',
+         secureConnection: true,
+         port: 465,
+         auth: {
+             user: 'test_user',
+             pass: 'test_pass'
+         }, 
+      },
+  },
+  //所有的邮件服务配置默认值
+  default: {
+      
+  }
+};
+```
+
+使用方法:
+```js
+const client1 = app.email.get('mail1');
+//...
+const client2 = app.email.get('mail2');
+```
+
+## 扩展
+
+### app.js
+
+#### app.email
+
+
+如果开启了 `config.email.app = true`，则会在 app 上注入 [nodemailer] 客户端 的 [Singleton 单例](https://github.com/eggjs/egg/blob/master/lib/core/singleton.js)。
+
+
+### agent.js
+
+#### agent.mysql
+
+如果开启了 `config.email.agent = true`，则会在 agent 上注入 [nodemailer] 客户端 的 [Singleton 单例](https://github.com/eggjs/egg/blob/master/lib/core/singleton.js)。
 
 ## 详细配置
 
 请到 [config/config.default.js](config/config.default.js) 查看详细配置项说明。
 
-## 单元测试
-
-<!-- 描述如何在单元测试中使用此插件，例如 schedule 如何触发。无则省略。-->
 
 ## 提问交流
 

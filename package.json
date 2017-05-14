@@ -1,6 +1,6 @@
 {
   "name": "egg-email",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "egg 邮件服务",
   "eggPlugin": {
     "name": "email"

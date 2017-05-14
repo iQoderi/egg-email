@@ -1,0 +1,60 @@
+{
+  "name": "egg-email",
+  "version": "1.0.0",
+  "description": "egg 邮件服务",
+  "eggPlugin": {
+    "name": "email"
+  },
+  "keywords": [
+    "egg",
+    "eggPlugin",
+    "egg-plugin"
+  ],
+  "dependencies": {
+    "assert": "^1.4.1",
+    "nodemailer": "^4.0.1"
+  },
+  "devDependencies": {
+    "autod": "^2.8.0",
+    "egg": "^1.3.0",
+    "egg-bin": "^3.3.2",
+    "egg-ci": "^1.6.0",
+    "egg-mock": "^3.6.1",
+    "eslint": "^3.19.0",
+    "eslint-config-egg": "^4.1.0",
+    "supertest": "^3.0.0",
+    "webstorm-disable-index": "^1.1.2"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "scripts": {
+    "test": "npm run lint -- --fix && npm run test-local",
+    "test-local": "egg-bin test",
+    "cov": "egg-bin cov",
+    "lint": "eslint .",
+    "ci": "npm run lint && npm run cov",
+    "autod": "autod"
+  },
+  "files": [
+    "index.js",
+    "app.js",
+    "agent.js",
+    "config",
+    "app",
+    "lib"
+  ],
+  "ci": {
+    "version": "6, 7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eggjs/egg-email.git"
+  },
+  "bugs": {
+    "url": "https://github.com/eggjs/egg/issues"
+  },
+  "homepage": "https://github.com/eggjs/egg-email#readme",
+  "author": "qoderplus@gmail.com",
+  "license": "MIT"
+}
